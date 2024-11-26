@@ -16,7 +16,7 @@ Cloud Analytics for Data-science Applications
 
 ---
 
-## **Outline for Lecture 1 Cloud Introduction**
+# **Outline for Lecture 1 Cloud Introduction**
 
 ## **1. Definition of Cloud Computing**  
 - Delivery of computing services over the internet.  
