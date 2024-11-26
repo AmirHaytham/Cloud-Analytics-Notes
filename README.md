@@ -1,7 +1,22 @@
 # Cloud Analytics Notes
 Cloud Analytics for Data-science Applications
 
-# **Outline for Lecture 1: Cloud Introduction**
+## Table of Contents
+
+- [Outline for Lecture 1 Cloud Introduction](#outline-for-lecture-1-cloud-introduction)
+- [Answers to Potential Questions from Lecture 1](#answers-to-potential-questions-from-lecture-1)
+- [Outline for Lecture 2: AWS Resources](#outline-for-lecture-2-aws-resources)
+- [Answers to Potential Questions from Lecture 2](#answers-to-potential-questions-from-lecture-2)
+- [Outline for Lecture 3: Data Warehousing](#outline-for-lecture-3-data-warehousing)
+- [Answers to Potential Questions from Lecture 3](#answers-to-potential-questions-from-lecture-3)
+- [Outline for Lecture 4: AWS Redshift](#outline-for-lecture-4-aws-redshift)
+- [Answers to Potential Questions from Lecture 4](#answers-to-potential-questions-from-lecture-4)
+- [Outline for Lecture 5: AWS Glue and Athena](#outline-for-lecture-5-aws-glue-and-athena)
+- [Answers to Potential Questions from Lecture 5](#answers-to-potential-questions-from-lecture-5)
+
+---
+
+## **Outline for Lecture 1 Cloud Introduction**
 
 ## **1. Definition of Cloud Computing**  
 - Delivery of computing services over the internet.  
