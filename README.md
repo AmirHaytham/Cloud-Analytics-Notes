@@ -13,7 +13,7 @@ Cloud Analytics for Data-science Applications
 - [Answers to Potential Questions from Lecture 4](#answers-to-potential-questions-from-lecture-4)
 - [Outline for Lecture 5: AWS Glue and Athena](#outline-for-lecture-5-aws-glue-and-athena)
 - [Answers to Potential Questions from Lecture 5](#answers-to-potential-questions-from-lecture-5)
-- [Diagrams - AWS Architecture and Services Overview](#Diagrams-AWS-Architecture-and-Services-Overview)
+- [Diagrams - AWS Architecture and Services Overview](#diagrams-aws-srchitecture-and-services-overview)
 
 ---
 
