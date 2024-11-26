@@ -1,5 +1,5 @@
 # Cloud Analytics Notes
-Cloud Analytics for Data-science Applications
+Cloud Analytics for Data-science Applications which is a recap for my pre-master's course.
 
 ## Table of Contents
 
