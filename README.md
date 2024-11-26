@@ -1,5 +1,5 @@
 # Cloud Analytics Notes
-Cloud Analytics for Data-science Applications which is a recap for my pre-master's course.
+Cloud Analytics for Data-science Applications
 
 ## Table of Contents
 
@@ -13,6 +13,7 @@ Cloud Analytics for Data-science Applications which is a recap for my pre-master
 - [Answers to Potential Questions from Lecture 4](#answers-to-potential-questions-from-lecture-4)
 - [Outline for Lecture 5: AWS Glue and Athena](#outline-for-lecture-5-aws-glue-and-athena)
 - [Answers to Potential Questions from Lecture 5](#answers-to-potential-questions-from-lecture-5)
+- [Diagrams - AWS Architecture and Services Overview](#diagram)
 
 ---
 
@@ -582,8 +583,211 @@ Glue is typically used to preprocess data, while Athena provides analysis capabi
 - ETL workflows for preprocessing data for reporting or machine learning.
 
 
+# **Diagrams - AWS Architecture and Services Overview**
+Diagrams include EC2 Overview, AMI Workflow, EC2 Lifecycle, VPC Network - VPC Architecture Diagram, VPC Architecture with Subnets, VPC Region and IP Range, Subnet Configuration, ACL, ACL (Access Control List) in VPC, Security Groups, Storage Types Overview, Block vs. Object Storage, S3 URL Breakdow, CloudFormation Workflow, Load Balancer Target Groups, Autoscaling & Load Balancing, and Advanced Autoscaling & Load Balancing.
+
+## EC2 Overview Diagram
+![EC2 Overview](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/EC2%20Overview.png)
+
+### **Instance Types and Sizes**
+- **General-purpose**: Balanced workloads.
+- **Compute-optimized**: Compute-intensive tasks.
+- **Memory-optimized**: Applications requiring high RAM.
+- **Accelerated computing**: GPU-intensive tasks like ML and AI.
+- **Storage-optimized**: Workloads requiring high IOPS.
+- **HPC-optimized**: High-performance computing.
+
+### **Table of EC2 Resources**
+| Instance Type         | vCPU | Memory (GB) | Storage Type    |
+|-----------------------|------|-------------|-----------------|
+| t2.micro (General)    | 1    | 1           | EBS             |
+| c5.large (Compute)    | 2    | 4           | EBS             |
+| r5.xlarge (Memory)    | 4    | 32          | EBS             |
+| g4dn.xlarge (GPU)     | 4    | 16          | NVMe SSD        |
+
+---
+
+## AMI Workflow Diagram
+![AMI Workflow Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/AMI%20Workflow%20Diagram.png)
+
+### **AMI Process**
+1. Create an Amazon Machine Image (AMI) from an existing instance.
+2. Launch new instances from the AMI.
+3. Share or reuse AMIs across accounts or regions.
+
+### **Reusability**
+- AMIs can be updated and saved as new versions.
+- Useful for maintaining consistency across EC2 instances.
+
+---
+
+## EC2 Lifecycle Diagram
+![AMI Workflow Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/EC2%20Lifecycle%20Diagram.png)
+
+### **States**
+1. **Pending**: Launching resources.
+2. **Running**: Instance is active.
+3. **Stopped**: Instance is halted.
+4. **Terminated**: Resources are released.
+
+### **Transitions**
+- Running → Stopped: Stopping an instance.
+- Stopped → Running: Restarting an instance.
+- Running → Terminated: Deleting an instance.
+
+---
+
+## VPC Network - VPC Architecture Diagram
+![VPC Network - VPC Architecture Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/VPC%20Network%20-%20VPC%20Architecture%20Diagram.png)
+
+### **Components**
+1. Public and private subnets.
+2. Security groups controlling instance access.
+3. Network ACLs (NACLs) applied at the subnet level.
+4. Multi-AZ setup for redundancy.
+
+---
 
 
+## VPC Routing Diagram - VPC Architecture with Subnets
+![VPC Routing Diagram - VPC Architecture with Subnets](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/VPC%20Architecture%20with%20Subnets.png)
 
+### **Routing Tables**
+- **Main Route Table**: Default route table for VPC.
+- **Custom Route Table**: Assigned to specific subnets.
+
+### **Traffic Flow**
+1. Public Subnets: Routes to the internet via an Internet Gateway.
+2. Private Subnets: Routes through a NAT Gateway for outbound traffic.
+
+---
+
+## Subnet Configuration
+![Subnet Configuration](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Subnet%20Configuration.png)
+
+### **Public and Private Subnets**
+- Public Subnets: Accessible from the internet.
+- Private Subnets: Internal traffic only.
+- CIDR Block Ranges:
+  - Public: 10.0.1.0/24
+  - Private: 10.0.2.0/24
+
+---
+
+## VPC Region and IP Range
+![VPC Region and IP Range](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/VPC%20Region%20and%20IP%20Range.png)
+
+### **CIDR Block**
+- VPC in N. Virginia:
+  - 10.0.0.0/16 CIDR block.
+  - Subnet CIDR ranges are within this block.
+
+---
+
+## ACL
+![AMI Workflow Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/ACL%20Diagram.png)
+
+### **Rules for Public and Private Subnets**
+- Public Subnet:
+  - Allow inbound HTTP/HTTPS.
+  - Allow inbound SSH.
+- Private Subnet:
+  - Allow inbound from public subnet for application traffic.
+  - Deny all other inbound traffic.
+
+---
+
+## ACL (Access Control List) in VPC
+![ACL (Access Control List) in VPC](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/ACL%20(Access%20Control%20List)%20in%20VPC.png)
+
+---
+
+## Security Groups Diagram
+![Security Groups Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Security%20Groups.png)
+
+### **EC2 Instance Protection**
+- Public Subnets:
+  - Allow HTTP/HTTPS from the internet.
+  - Allow SSH from a specific IP range.
+- Private Subnets:
+  - Allow traffic only from the public subnet.
+
+---
+
+## Autoscaling & Load Balancing
+![Autoscaling & Load Balancing](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Autoscaling%20%26%20Load%20Balancing.png)
+
+### **Integration**
+- **ELB**: Distributes traffic across instances in multiple subnets.
+- **Autoscaling**: Automatically adjusts instance count based on load.
+- **Subnets**: Ensure high availability by using multiple AZs.
+
+### **AWS Services**
+- **DynamoDB**: NoSQL database for scalable storage.
+- **S3**: Object storage for data backup and archival.
+- **CloudWatch**: Monitoring and alerting service.
+
+---
+
+## Storage Types Overview
+![Storage Types Overview](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Storage%20Types%20Overview.png)
+
+### **Comparison**
+| Storage Type     | Use Case                        | Access Type   | Durability      |
+|------------------|----------------------------------|---------------|-----------------|
+| S3               | Backup, archival               | Object        | 99.999999999%  |
+| Glacier          | Long-term archival             | Object        | High            |
+| EBS              | Persistent instance storage    | Block         | High            |
+| EFS              | Shared file systems            | File          | High            |
+
+---
+
+## Block vs. Object Storage
+![Block vs. Object Storage](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Block%20vs.%20Object%20Storage.png)
+
+### **Differences**
+- **Block Storage**: EBS, allows incremental updates to files.
+- **Object Storage**: S3, stores data as objects with metadata.
+
+---
+
+## S3 URL Breakdown
+![S3 URL Breakdown](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/S3%20URL%20Breakdow.png)
+
+### **Structure**
+- Example: `https://bucket-name.s3.amazonaws.com/object-key`
+  - **Bucket Name**: Unique identifier for your S3 storage.
+  - **Object Key**: Path to the stored object.
+
+---
+
+## CloudFormation Workflow
+![CloudFormation Workflow](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/CloudFormation%20Workflow.png)
+
+### **Steps**
+1. Write a CloudFormation template.
+2. Upload template to AWS.
+3. Deploy infrastructure as defined in the template.
+
+---
+
+## Load Balancer Target Groups
+![Load Balancer Target Groups](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Load%20Balancer%20Target%20Groups.png)
+
+### **Traffic Routing**
+- ELB sends requests to target groups.
+- Target groups distribute traffic to specific EC2 instances.
+
+---
+
+## Autoscaling & Load Balancing
+![Autoscaling & Load Balancing](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Autoscaling%20%26%20Load%20Balancing.png)
+
+## Advanced Autoscaling & Load Balancing
+![Advanced Autoscaling & Load Balancing](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Advanced%20Autoscaling%20%26%20Load%20Balancing.png)
+
+### **Configuration**
+- Multi-zone EC2 instances.
+- ELB distributes traffic evenly across all zones.
 
 
