@@ -588,63 +588,198 @@ Diagrams include EC2 Overview, AMI Workflow, EC2 Lifecycle, VPC Network - VPC Ar
 
 ## EC2 Overview Diagram
 ![EC2 Overview](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/EC2%20Overview.png)
+The image provides an overview of Amazon EC2 (Elastic Compute Cloud), focusing on instance types and sizes.
 
-### **Instance Types and Sizes**
-- **General-purpose**: Balanced workloads.
-- **Compute-optimized**: Compute-intensive tasks.
-- **Memory-optimized**: Applications requiring high RAM.
-- **Accelerated computing**: GPU-intensive tasks like ML and AI.
-- **Storage-optimized**: Workloads requiring high IOPS.
-- **HPC-optimized**: High-performance computing.
+---
 
-### **Table of EC2 Resources**
-| Instance Type         | vCPU | Memory (GB) | Storage Type    |
-|-----------------------|------|-------------|-----------------|
-| t2.micro (General)    | 1    | 1           | EBS             |
-| c5.large (Compute)    | 2    | 4           | EBS             |
-| r5.xlarge (Memory)    | 4    | 32          | EBS             |
-| g4dn.xlarge (GPU)     | 4    | 16          | NVMe SSD        |
+## **Instance Types**
+Amazon EC2 offers several instance types tailored for different workloads:
+
+1. **General Purpose**:
+   - Balanced workloads for computing, memory, and networking.
+   - Example Use Cases: Web servers, development/test environments.
+
+2. **Compute Optimized**:
+   - For compute-heavy applications requiring high performance.
+   - Example Use Cases: Machine learning, high-performance web servers.
+
+3. **Memory Optimized**:
+   - Ideal for memory-intensive applications.
+   - Example Use Cases: In-memory databases, real-time big data processing.
+
+4. **Accelerated Computing**:
+   - Designed for tasks requiring specialized hardware like GPUs.
+   - Example Use Cases: Machine learning training, graphic rendering.
+
+5. **Storage Optimized**:
+   - Suited for high I/O workloads needing fast, large-scale storage.
+   - Example Use Cases: Data warehouses, distributed file systems.
+
+6. **HPC Optimized**:
+   - High-performance computing for scientific modeling and simulations.
+   - Example Use Cases: Genomics, financial modeling.
+
+---
+
+## **Instance Sizes**
+Instances are categorized by size, represented by a combination of a type prefix and a size suffix (e.g., `t3.medium`, `a1.large`):
+
+- **Prefix (e.g., "t3")**: Indicates the instance type.
+- **Suffix (e.g., "medium")**: Determines the CPU and memory configuration.
+
+---
+
+## **Resources in Table**
+The table provides examples of virtual CPUs (vCPUs) and their corresponding capabilities for different instance types:
+
+| **Instance Type**    | **vCPU** | **Memory (GB)** | **Special Notes**                    |
+|-----------------------|----------|-----------------|--------------------------------------|
+| **t3.micro**          | 2        | 1               | General-purpose, burstable CPU.      |
+| **c5.large**          | 2        | 4               | Compute-optimized.                   |
+| **r5.xlarge**         | 4        | 32              | Memory-optimized.                    |
+| **g4dn.xlarge**       | 4        | 16              | Accelerated computing with GPUs.     |
+| **i3.large**          | 2        | 8               | Storage-optimized with NVMe SSD.     |
+| **hpc6a.48xlarge**    | 96       | 384             | HPC-optimized for high scalability.  |
 
 ---
 
 ## AMI Workflow Diagram
 ![AMI Workflow Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/AMI%20Workflow%20Diagram.png)
 
-### **AMI Process**
-1. Create an Amazon Machine Image (AMI) from an existing instance.
-2. Launch new instances from the AMI.
-3. Share or reuse AMIs across accounts or regions.
+## **Description**
 
-### **Reusability**
-- AMIs can be updated and saved as new versions.
-- Useful for maintaining consistency across EC2 instances.
+### **What is an AMI?**
+- An **Amazon Machine Image (AMI)** is a pre-configured template used to launch EC2 instances.
+- Includes essential components:
+  - Operating system.
+  - Application server.
+  - Pre-installed applications.
+- Eliminates the need for manual operating system installation and server setup, enabling faster deployments.
+
+---
+
+## **Diagram Details**
+
+### **Top Section**:
+- Demonstrates how an AMI is used to create an EC2 instance.
+- The instance includes:
+  - **Root Volume**: Attached storage for the instance.
+
+### **Bottom Section**:
+- Highlights the reusability of AMIs:
+  1. **AMI #1**: Used to create Instance #1.
+  2. **New AMI**: After modifications to Instance #1, a new AMI is created.
+  3. **Reusability**: The new AMI is then used to launch additional instances.
+
+---
+
+## **Key Benefits of AMIs**
+1. **Streamlined Instance Launching**:
+   - Pre-configured templates save time and reduce manual setup.
+2. **Consistency**:
+   - Reusable AMIs ensure uniformity across instances.
+3. **Version Control**:
+   - Easily update and save new versions of AMIs after modifications.
+4. **Scalability**:
+   - Launch multiple instances from the same AMI for large-scale applications.
 
 ---
 
 ## EC2 Lifecycle Diagram
 ![AMI Workflow Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/EC2%20Lifecycle%20Diagram.png)
 
-### **States**
-1. **Pending**: Launching resources.
-2. **Running**: Instance is active.
-3. **Stopped**: Instance is halted.
-4. **Terminated**: Resources are released.
+## **Description**
 
-### **Transitions**
-- Running → Stopped: Stopping an instance.
-- Stopped → Running: Restarting an instance.
-- Running → Terminated: Deleting an instance.
+### **Lifecycle Phases**
+Amazon EC2 instances go through several lifecycle states, each with distinct characteristics and implications for billing and resource management:
+
+1. **Pending**:
+   - The instance is in the process of launching.
+   - Billing has not yet started.
+   
+2. **Running**:
+   - The instance is active and operational.
+   - **Billing begins** in this state.
+   
+3. **Stopping/Stopped**:
+   - The instance transitions to a stopped state.
+   - For EBS-backed instances:
+     - Data on the root volume is retained.
+     - Billing for **computing** stops, but charges for **storage** continue.
+   
+4. **Rebooting**:
+   - A temporary restart of the instance.
+   - No data is lost during this phase.
+   - Billing continues without interruption.
+
+5. **Terminated**:
+   - The instance is permanently deleted.
+   - Associated resources, such as storage volumes, are released (unless marked to persist).
+
+---
+
+## **Relevance**
+Understanding the lifecycle states of EC2 instances is essential for:
+
+1. **Cost Management**:
+   - Ensure unused instances are stopped or terminated to minimize costs.
+   
+2. **Resource Optimization**:
+   - Manage instance states efficiently to match application requirements.
+
+3. **Data Retention**:
+   - Recognize when data persists (e.g., stopped instances with EBS) versus when it is permanently deleted (e.g., terminated instances).
 
 ---
 
 ## VPC Network - VPC Architecture Diagram
 ![VPC Network - VPC Architecture Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/VPC%20Network%20-%20VPC%20Architecture%20Diagram.png)
 
-### **Components**
-1. Public and private subnets.
-2. Security groups controlling instance access.
-3. Network ACLs (NACLs) applied at the subnet level.
-4. Multi-AZ setup for redundancy.
+### **What is a VPC?**
+- A **Virtual Private Cloud (VPC)** is a logically isolated network within AWS.
+- Enables complete control over networking, including:
+  - **Subnets**: Logical subdivisions of the VPC.
+  - **Security Groups**: Act as virtual firewalls for instance-level access control.
+  - **Network Access Configurations**: Define routing and internet access.
+
+---
+
+## **Diagram Highlights**
+
+### **Components**:
+1. **Public Subnet**:
+   - Hosts resources accessible from the internet, such as EC2 instances.
+   - Uses an Internet Gateway (IGW) for connectivity.
+
+2. **Private Subnet**:
+   - Isolated from direct internet access.
+   - Ideal for sensitive resources like **databases** (e.g., Amazon RDS).
+   - Internet access for private resources is managed via a **NAT Gateway** or **NAT Instance**.
+
+3. **Availability Zones (AZs)**:
+   - Two zones (e.g., AZ A and AZ B) are shown for redundancy and fault tolerance.
+   - Resources are distributed across AZs to improve high availability.
+
+4. **Access Control**:
+   - **Security Groups**: Define inbound and outbound traffic rules for instances.
+   - **Network ACLs (NACLs)**: Optional, subnet-level rules for additional traffic control.
+
+5. **Corporate Connectivity**:
+   - Integration with on-premises data centers is shown via:
+     - **VPN**: Secure connections over the internet.
+     - **AWS Direct Connect**: Dedicated, high-speed private connections.
+
+---
+
+## **Key Benefits of VPC**:
+1. **Customizable Networking**:
+   - Configure IP ranges, subnets, route tables, and gateways.
+   
+2. **Secure Resource Isolation**:
+   - Resources are isolated at the network level for enhanced security.
+   
+3. **Seamless Hybrid Connectivity**:
+   - Combine on-premises data centers with AWS resources.
 
 ---
 
@@ -652,35 +787,102 @@ Diagrams include EC2 Overview, AMI Workflow, EC2 Lifecycle, VPC Network - VPC Ar
 ## VPC Routing Diagram - VPC Architecture with Subnets
 ![VPC Routing Diagram - VPC Architecture with Subnets](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/VPC%20Architecture%20with%20Subnets.png)
 
-### **Routing Tables**
-- **Main Route Table**: Default route table for VPC.
-- **Custom Route Table**: Assigned to specific subnets.
-
-### **Traffic Flow**
-1. Public Subnets: Routes to the internet via an Internet Gateway.
-2. Private Subnets: Routes through a NAT Gateway for outbound traffic.
+### **Main Route Table**
+- Default route table for the VPC.
+- Handles **local traffic**:
+  - Example: Traffic within the VPC (e.g., **10.1.0.0/16**) is routed locally.
+- Does **not** allow internet access.
 
 ---
 
-## Subnet Configuration
+### **Custom Route Table**
+- A user-defined route table with additional configurations.
+- Allows **internet access**:
+  - Example: Routes traffic to an **Internet Gateway (IGW)** for external communication.
+  - Destination: `0.0.0.0/0` (represents all IP addresses outside the VPC).
+
+---
+
+## **Subnets Overview**
+
+### **1. Public Subnet**
+- Connected to the **Internet Gateway** for external access.
+- Resources in this subnet (e.g., EC2 instances) are accessible from the internet.
+
+### **2. Private Subnet**
+- Isolated from direct internet access.
+- Traffic remains within the VPC or uses a **NAT Gateway**   (if configured) for outbound internet access.
+- **Red X**: Represents a **blocked pathway** for internet traffic directly from the private subnet.
+
+---
+
+## **Key Points**
+1. **Main Route Table**: Restricts traffic to remain within the VPC.
+2. **Custom Route Table**: Enables internet access via an Internet Gateway.
+3. **Subnet Differentiation**:
+   - **Public Subnet**: Internet-enabled.
+   - **Private Subnet**: Internet-isolated.
+
+---
+
+# Subnet IP Ranges
 ![Subnet Configuration](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Subnet%20Configuration.png)
 
-### **Public and Private Subnets**
-- Public Subnets: Accessible from the internet.
-- Private Subnets: Internal traffic only.
-- CIDR Block Ranges:
-  - Public: 10.0.1.0/24
-  - Private: 10.0.2.0/24
+### **Subnet IP Ranges**
+1. **Public Subnet**:
+   - CIDR Block: `10.1.1.0/24`.
+   - Supports up to **256 IP addresses**.
+   - Allows **internet access** via an **Internet Gateway**.
+
+2. **Private Subnet**:
+   - CIDR Block: `10.1.3.0/24`.
+   - Supports up to **256 IP addresses**.
+   - **Isolated** from the internet for hosting secure resources like databases.
+
+---
+
+### **Non-Overlapping Subnets**
+- Both subnets are distinct subsets of the VPC's IP range (`10.1.0.0/16`).
+- Ensures there is no overlap, avoiding conflicts in resource allocation.
+
+---
+
+### **Availability Zone**
+- Both subnets are deployed in **Zone A** of the selected AWS region.
+- Regional zones improve redundancy and fault tolerance for resources.
+
+---
+
+## **Public vs. Private Subnet**
+| **Subnet Type** | **Internet Access**             | **Use Case**                      |
+|------------------|---------------------------------|------------------------------------|
+| **Public**       | Yes (via Internet Gateway)     | Hosting public-facing resources like EC2 instances or web servers. |
+| **Private**      | No (isolated)                  | Securely hosting sensitive resources like databases or backend applications. |
 
 ---
 
 ## VPC Region and IP Range
 ![VPC Region and IP Range](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/VPC%20Region%20and%20IP%20Range.png)
 
-### **CIDR Block**
-- VPC in N. Virginia:
-  - 10.0.0.0/16 CIDR block.
-  - Subnet CIDR ranges are within this block.
+### **Region**
+- The **VPC** is deployed in the AWS region **N. Virginia** (`us-east-1`).
+- Regional placement ensures optimized latency and redundancy for resources.
+
+---
+
+### **IP Range**
+- The VPC is assigned the **CIDR block**: `10.1.0.0/16`.
+  - Supports up to **65,536 IP addresses** within this range.
+  - Provides flexibility to define smaller **subnets** within the VPC.
+
+---
+
+## **Purpose**
+- Demonstrates the scope of available IP addresses for:
+  - Subnets.
+  - EC2 instances.
+  - Other resources within the VPC.
+- Ensures sufficient IP allocation for scaling applications and supporting complex architectures.
 
 ---
 
@@ -700,17 +902,99 @@ Diagrams include EC2 Overview, AMI Workflow, EC2 Lifecycle, VPC Network - VPC Ar
 ## ACL (Access Control List) in VPC
 ![ACL (Access Control List) in VPC](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/ACL%20(Access%20Control%20List)%20in%20VPC.png)
 
+### **What is an ACL?**
+- A **Network Access Control List (ACL)** is a network-level security mechanism in AWS.
+- Operates at the **subnet boundary**, providing an additional layer of security.
+- Configured to **allow** or **deny** specific traffic based on defined rules.
+
+---
+
+### **Key Features**
+1. **Stateless**:
+   - Inbound and outbound rules are evaluated separately.
+2. **Subnet-level Protection**:
+   - ACLs apply to all resources within a subnet.
+3. **Rule Evaluation**:
+   - Rules are evaluated in numerical order (from lowest to highest).
+
+---
+
+## **Diagram Highlights**
+
+### **Subnets**:
+1. **Public Subnet**:
+   - Used for internet-facing resources.
+   - ACL rules permit inbound HTTP/HTTPS traffic and SSH access.
+2. **Private Subnet**:
+   - Hosts sensitive resources like databases.
+   - ACL rules restrict inbound traffic, allowing only necessary communication from the public subnet.
+
+### **Availability Zones**:
+- Two zones (**A** and **B**) provide redundancy:
+  - Each zone contains both public and private subnets.
+  - ACLs are applied consistently across all subnets for uniform security.
+
+---
+
+## **Purpose of ACLs**
+1. **Enhanced Security**:
+   - Adds an extra layer of protection alongside **Security Groups**.
+2. **Granular Traffic Control**:
+   - Allows fine-tuning of allowed and denied traffic at the subnet level.
+3. **Support for Multi-Subnet Architectures**:
+   - Ensures secure communication between public and private subnets in multi-AZ deployments.
+
 ---
 
 ## Security Groups Diagram
 ![Security Groups Diagram](https://github.com/AmirHaytham/Cloud-Analytics-Notes/blob/main/Security%20Groups.png)
 
-### **EC2 Instance Protection**
-- Public Subnets:
-  - Allow HTTP/HTTPS from the internet.
-  - Allow SSH from a specific IP range.
-- Private Subnets:
-  - Allow traffic only from the public subnet.
+### **What are Security Groups?**
+- A **Security Group** acts as a virtual firewall for EC2 instances.
+- Controls **inbound** and **outbound traffic** for individual instances.
+- Operates at the **instance level**, offering fine-grained control over traffic.
+
+---
+
+## **Key Features**
+1. **Stateful**:
+   - Automatically allows return traffic for permitted inbound or outbound requests.
+2. **Instance-Level Protection**:
+   - Unlike ACLs, security groups are applied directly to EC2 instances.
+3. **Customizable Rules**:
+   - Rules specify:
+     - Allowed **ports** (e.g., 22 for SSH, 80 for HTTP).
+     - Allowed **protocols** (e.g., TCP, UDP).
+     - Allowed **IP ranges** or **specific IPs**.
+
+---
+
+## **Diagram Highlights**
+
+### **Public Subnets**:
+- EC2 instances hosted in public subnets are protected by security groups.
+- Typical security group rules for public subnets:
+  1. Allow inbound **HTTP/HTTPS** traffic (ports 80 and 443) from the internet.
+  2. Allow inbound **SSH** access (port 22) from a specific IP range for management purposes.
+  3. Deny all other inbound traffic by default.
+
+### **Private Subnets**:
+- EC2 instances in private subnets also have security groups.
+- Typical security group rules for private subnets:
+  1. Allow inbound traffic only from instances in the public subnet (e.g., application servers).
+  2. Deny all other inbound traffic.
+
+---
+
+## **Purpose of Security Groups**
+1. **Enhanced Instance Security**:
+   - Ensures that only trusted traffic reaches EC2 instances.
+2. **Customizable Traffic Control**:
+   - Tailor rules to specific application requirements.
+3. **Simplified Management**:
+   - Rules can be updated dynamically without disrupting instance operations.
+
+---
 
 ---
 
