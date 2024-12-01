@@ -13,7 +13,7 @@ Cloud Analytics for Data-science Applications
 - [Answers to Potential Questions from Lecture 4](#answers-to-potential-questions-from-lecture-4)
 - [Outline for Lecture 5: AWS Glue and Athena](#outline-for-lecture-5-aws-glue-and-athena)
 - [Answers to Potential Questions from Lecture 5](#answers-to-potential-questions-from-lecture-5)
-- [Outline for Lecture 6: AWS QuickSight](#outline-for-lecture-6-quicksight)
+- [Outline for Lecture 6: AWS QuickSight](#outline-for-lecture-6-aws-quicksight)
 - [Answers to Potential Questions from Lecture 6](#answers-to-potential-questions-from-lecture-6)
 - [Diagrams - AWS Architecture and Services Overview](#diagrams---aws-architecture-and-services-overview)
 
