@@ -994,7 +994,45 @@ Understanding the lifecycle states of EC2 instances is essential for:
 3. **Simplified Management**:
    - Rules can be updated dynamically without disrupting instance operations.
 
+-----
+# Relevance to Lectures 1 and 2
+
+## **Lecture 1 Concepts**
+
+1. **Cloud Networking Models**:
+   - The **VPC and subnet diagrams** illustrate networking within a cloud environment, tying back to **deployment models**:
+     - **Public Clouds**: Represented by **public subnets** with internet access.
+     - **Private Clouds**: Represented by **private subnets**, isolated for secure resources.
+
+2. **EC2 Lifecycle**:
+   - The **EC2 lifecycle diagram** connects to foundational cloud computing characteristics:
+     - **On-Demand Self-Service**: Users can start, stop, or terminate instances as needed.
+     - **Resource Pooling**: EC2 instances utilize shared infrastructure dynamically.
+
 ---
+
+## **Lecture 2 Concepts**
+
+1. **AWS EC2 and AMI**:
+   - Focused diagrams and workflows emphasize core AWS compute services:
+     - **EC2**: Launching and managing virtual servers.
+     - **AMI**: Streamlining instance creation with pre-configured templates.
+
+2. **VPC and Networking**:
+   - Key AWS networking services are highlighted:
+     - **Routing**: Custom route tables enable secure and efficient traffic management.
+     - **ACL**: Subnet-level control adds an additional security layer.
+     - **Security Groups**: Instance-level firewalls for fine-grained traffic control.
+
+3. **Subnet Configuration**:
+   - Subnet configurations align with AWS **regions** and **availability zones**:
+     - Demonstrates the importance of distributing resources across **multiple zones** for redundancy and fault tolerance.
+
+---
+
+## **Summary**
+- These diagrams and explanations bridge theoretical cloud computing concepts from Lecture 1 with practical AWS implementations covered in Lecture 2.
+- They emphasize key cloud principles like **network isolation**, **scalability**, and **security**, while showcasing AWS's capabilities in enabling these features.
 
 ---
 
